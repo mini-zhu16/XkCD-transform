@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: bronze_comics
+    description: >
+      This table contains the raw comics data extracting from the XKCD api.
+    columns:
+     - name: comic_id
+       description: >
+         The unique identifier for the comic.
+       tests:
+         - unique
+         - not_null
+
+  - name: silver_comics_fct
+    description: >
+      This table contains the cleansed comics fact data, including the cost, views, and reviews.
+    columns:
+     - name: comic_id
+       description: >
+         The unique identifier for the comic.
+       tests:
+         - unique
+         - not_null
+     - name: date_id
+       description: >
+         The identifier for the date.
+       tests:
+         - not_null
+     - name: cost
+       description: >
+         The cost of the comic. Created by the number of letters in the title. Each letter costs 5 euros
+       tests:
+        - not_null
+     - name: views
+       description: >
+         The number of views the comic has received. It is a random number between 0 and 10000
+       tests:
+         - not_null
+     - name: reviews
+       description: >
+         The review score the comic has received. It is a random integer between 0 and 10
+       tests:
+         - not_null
+
+  - name: silver_comics_dim
+    description: >
+      This table contains the cleansed comics dimensional data, including the title, alt text, urls, and transcript.
+    columns:
+     - name: comic_id
+       description: >
+         The unique identifier for the comic.
+       tests:
+         - unique
+         - not_null
+
+  - name: silver_date_dim
+    description: >
+      This table contains the general date dimension table.
+    columns:
+     - name: date_id
+       description: >
+         The unique identifier for the date.
+       tests:
+         - unique
+         - not_null
+                      

@@ -6,3 +6,8 @@ sources:
     schema: xkcd_dataset
     tables:
       - name: xkcd_comics
+        loaded_at_field: created_at
+        # check the source freshness
+        freshness:
+          warn_after: {count: 5, period: day}
+          error_after: {count: 10, period: day}
