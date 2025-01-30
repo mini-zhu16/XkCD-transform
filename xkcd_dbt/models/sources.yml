@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: xkcd_dataset
+    database: xkcd-449310
+    schema: xkcd_dataset
+    tables:
+      - name: xkcd_comics
