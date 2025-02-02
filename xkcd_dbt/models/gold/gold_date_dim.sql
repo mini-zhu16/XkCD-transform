@@ -1,5 +1,5 @@
 {{ config(
-    materialized='table',
+    materialized='incremental',
     unique_key='date_id'
 ) }}
 
@@ -8,6 +8,10 @@ WITH date_series AS (
     SELECT 
         DATE '2006-01-01' + INTERVAL x DAY AS date_value
     FROM UNNEST(GENERATE_ARRAY(0, DATE_DIFF(CURRENT_DATE(), DATE '2006-01-01', DAY))) AS x
+    {% if is_incremental() %}
+    -- Ensure we only generate dates that are not already in the table (based on date_id)
+    WHERE DATE '2006-01-01' + INTERVAL x DAY > (SELECT MAX(date_value) FROM {{ this }})
+    {% endif %}
 )
 
 SELECT

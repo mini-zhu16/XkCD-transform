@@ -54,7 +54,7 @@ models:
          - unique
          - not_null
 
-  - name: silver_date_dim
+  - name: gold_date_dim
     description: >
       This table contains the general date dimension table.
     columns:

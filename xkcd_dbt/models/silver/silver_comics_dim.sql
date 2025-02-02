@@ -16,6 +16,7 @@ SELECT DISTINCT
     transcript,
     link,
     news,
+    extra_parts,
     CURRENT_TIMESTAMP() AS processed_at
 FROM bronze_comics
 {% if is_incremental() %}
